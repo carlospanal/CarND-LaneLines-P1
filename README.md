@@ -11,8 +11,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/grayscale.jpg "Grayscale"
-[canny]: ./other_outputs/readme_images/canny.JPG "Canny"
+[image1]: ./test_images_output/out_solidWhiteCurve.jpg "output"
 
 ---
 
@@ -60,10 +59,13 @@ Regarding the challenge, I partially completed it by making these modifications:
  The video of this challenge is still unstable from 0:04 to 0:05. 
  I tried some strategies like lowering the canny low and high threshold, but it had a negative effect on the previous videos.
 
-![Canny Image][canny]
-[link to the video](other_outputs/output_canny/solidWhiteRight.mp4)
 
+Output of the pipeline when applied to a training image:
 ![alt text][image1]
+
+[link to folder containing videos on their final state](test_videos_output)
+
+[link to folder containing videos of different steps of the process](other_outputs)
 
 
 ### 2. Identify potential shortcomings with your current pipeline
