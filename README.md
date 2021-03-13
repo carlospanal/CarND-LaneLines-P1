@@ -59,7 +59,8 @@ Regarding the challenge, I partially completed it by making these modifications:
  The video of this challenge is still unstable from 0:04 to 0:05. 
  I tried some strategies like lowering the canny low and high threshold, but it had a negative effect on the previous videos.
 
-[a relative link](other_outputs/output_canny/solidWhiteRight.mp4)
+![Canny Image][other_outputs\readme_images/canny.jpg]
+[link to the video](other_outputs/output_canny/solidWhiteRight.mp4)
 
 ![alt text][image1]
 
