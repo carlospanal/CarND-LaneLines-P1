@@ -1,56 +1,79 @@
 # **Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<img src="examples/laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
 
-Overview
 ---
 
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
 
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
-
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
-
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
+The goals / steps of this project are the following:
+* Make a pipeline that finds lane lines on the road
+* Reflect on your work in a written report
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
+[//]: # (Image References)
 
-1. Describe the pipeline
+[image1]: ./examples/grayscale.jpg "Grayscale"
 
-2. Identify any shortcomings
-
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
-
-
-The Project
 ---
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
+### Reflection
 
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) if you haven't already.
+### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-**Step 2:** Open the code in a Jupyter Notebook
+I created 2 pipelines. 
+They work the same way, but the first one takes a list of images as an input instead of a single image and,
+unlike the definitive pipeline, its region of interest has 
+The first one was used for training images and includes a widget that lets you control the hough function parameters 
+and also lets you move through the list of images. 
+Initial values for parameters of this widget are the same as the ones chosen for both pipelines, and its use
+doesn't affect the stored output of the involved training images.
 
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out [Udacity's free course on Anaconda and Jupyter Notebooks](https://classroom.udacity.com/courses/ud1111) to get started.
+The definitive pipeline takes an image as an input and consists on the following steps:
 
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
+  1 - Convert intial RGB image to grayscale using grayscale()
 
-`> jupyter notebook`
+  2 - Apply smoothing to the image using gaussian_blur()
 
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
+  3 - Use Canny algorithm on the image to detect edges using canny()
 
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
+  4 - Define a region of interest, depending on the image size and using  np.array()
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+  5 - Apply defined region to the output of canny() function using region_of_interest()
 
+  6 - Calculate Hough Lines using hough_lines()
+  
+After creating this definitive pipeline, i started modifying draw_lines() so that function
+was able to draw 1 averaged lines for each lane instead of all the detected hough lines.
+Basic steps of this strategy:
+
+  1 - Group lines as left or right lines depending on their slope
+  2 - Use polyfit() and poly1d() to fit a line through each group of points
+  3 - Set starting and end points of each averaged lane considering the fitted line and image dimensions
+  
+Regarding the challenge, I partially completed it by making these modifications:
+
+  1 - Define region of interest based on image dimensions instead of "hardcoding" it
+  2 - Define 2 global variables that store last averaged lines so the program doesn't break
+      when there is frame with no detected lines in some of the lanes.
+  3 - Set a minimal slope so horizontal line are discarded.
+  
+ The video of this challenge is still unstable from 0:04 to 0:05. 
+ I tried some strategies like lowering the canny low and high threshold, but it had a negative effect on the previous videos.
+
+[a relative link](other_outputs/output_canny/solidWhiteRight.mp4)
+
+![alt text][image1]
+
+
+### 2. Identify potential shortcomings with your current pipeline
+
+
+One potential shortcoming would be what would happen when ... 
+
+Another shortcoming could be ...
+
+
+### 3. Suggest possible improvements to your pipeline
+
+A possible improvement would be to ...
+
+Another potential improvement could be to ...
