@@ -42,7 +42,7 @@ The definitive pipeline takes an image as an input and consists on the following
   6 - Calculate Hough Lines using hough_lines()  
   
 After creating this definitive pipeline, i started modifying draw_lines() so that function
-was able to draw 1 averaged lines for each lane instead of all the detected hough lines.
+was able to draw 1 averaged line for each lane instead of all the detected hough lines.
 Basic steps of this strategy:  
 
   1 - Group lines as left or right lines depending on their slope  
@@ -72,6 +72,7 @@ Output of the pipeline when applied to a training image:
 
 
 Changes on light instensity or road colors can break this pipeline, as happens with the last challenge video.   
+  
 Another problem is that this process is not considering the fact that there could be a much closer car on the same lane.  
 In addition, the system is not robust against cracks on the road or in the car front glass.  
 
