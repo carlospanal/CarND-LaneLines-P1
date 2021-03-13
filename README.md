@@ -11,7 +11,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./other_outputs/readme_images/canny.jpg "Canny"
+[image1]: ./examples/grayscale.jpg "Grayscale"
+[canny]: ./other_outputs/readme_images/canny.JPG "Canny"
 
 ---
 
